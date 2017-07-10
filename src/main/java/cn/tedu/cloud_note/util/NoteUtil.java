@@ -3,6 +3,7 @@ package cn.tedu.cloud_note.util;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 import sun.misc.BASE64Encoder;
 
@@ -27,4 +28,21 @@ public class NoteUtil {
 		}
 		return result;
     }
+	
+	
+	
+	/**
+	 * 利用UUID算法生成主键
+	 */
+	public static String createId(){
+		UUID uuid = UUID.randomUUID();
+		String id = uuid.toString();
+		return id.replaceAll("-", "");
+	}
+	
+	
+	public static void main(String[] args) {
+		System.out.println(createId());
+		System.out.println(md5(createId()));
+	}
 }

@@ -5,43 +5,67 @@
 
 <!-- 引入jquery -->
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/basevalue.js"></script>
+<script type="text/javascript" src="scripts/cookie_util.js"></script>
+<script type="text/javascript" src="scripts/login.js"></script>
 <script type="text/javascript">
 	$(function(){   //页面加载完调用该函数
-		$("#login").click(function(){
+		//登录功能事件绑定
+		$("#login").click(userLogin);
+		//注册功能的事件绑定
+		$("#regist_button").click(function(){
 			//获取参数
-			var name = $("#count").val().trim();
-			var password = $("#password").val().trim();
-
-			//格式检测
-			var ok=true;
-			if(name==""){
-				$("#count_span").html("用户名不能为空");
-				ok=false;
-			}
-			if(password==""){
-				$("#password_span").html("密码不能为空");
+			var name = $("#regist_username").val().trim();
+			var nick = $("#nickname").val().trim();
+			var password = $("#regist_password").val().trim();
+			var final_password = $("#final_password").val().trim();
+			alert(name+","+nick+","+password+","+final_password);
+			//检查数据格式
+			var ok = true;   //表示参数状态
+			//检查账号
+			if (name=="") {
+				$("#warning_1 span").html("用户不能为空");
+				$("#warning_1").show();
 				ok=false;
 			}
 			
+			//检查密码
+			if (password=="") {
+				ok=false;
+				$("#warning_2 span").html("密码不能为空");
+				$("#warning_2").show();
+			}else if(password.length > 0 && password.length<6){
+				ok=false;
+				$("#warning_2 span").html("密码不能少于6位");
+				$("#warning_2").show();
+			}
 			
-			if (ok) {    //检测格式通过
-				//发送请求
+			//检查确认密码
+			if (final_password!=password) {
+				ok=false;
+				$("#warning_3 span").html("输入密码不一致");
+				$("#warning_3").show();
+			}
+			
+			
+			if (ok) {
 				$.ajax({
-					url:"/user/login.do",
+					url:path+"/user/add.do",
 					type:"post",
-					data:{"name":name,"password":password},
+					data:{"name":name,"nick":nick,"password":password},
 					dataType:"json",
 					success:function(){
 						
 					},
 					error:function(){
-						alert("登录失败!");
+						alert("注册失败");
 					}
 				});
 			}
 			
+			
+			
 		});
-		
 	});
 </script>
 </head>

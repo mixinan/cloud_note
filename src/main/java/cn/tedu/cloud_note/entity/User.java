@@ -10,6 +10,10 @@ public class User implements Serializable{
 	private String cn_user_nick;
 	
 	
+	
+	public User() {
+	}
+
 	@Override
 	public String toString() {
 		return "User [cn_user_id=" + cn_user_id + ", cn_user_name=" + cn_user_name + ", cn_user_password="

@@ -27,4 +27,16 @@ public class TestUserService {
 		System.out.println(result.getData());
 	}
 	
+	
+	@Test    //预期结果：注册成功
+	public void test2(){
+		String name ="cang";
+		String password="123456";
+		String nick = "狗蛋儿";
+		NoteResult<Object> result = service.addUser(name, password, nick);
+		
+		System.out.println(result.getMsg());
+				
+	}
+	
 }

@@ -43,4 +43,39 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	
+	/**
+	 * 注册用户
+	 * @return 
+	 */
+	public NoteResult<Object> addUser(String name, String password, String nick) {
+		NoteResult<Object> result = new NoteResult<Object>();
+		User hasUser = userDao.findByName(name);
+		
+		if (hasUser!=null) {
+			result.setStatus(1);
+			result.setMsg("该账号已经存在");
+			return result;
+		}
+		
+		//添加用户
+		User user = new User();
+		//设置用户名
+		user.setCn_user_name(name);
+		//设置加密的密码
+		String md5Password = NoteUtil.md5(password);
+		user.setCn_user_password(md5Password);
+		//设置id
+		user.setCn_user_id(NoteUtil.createId());
+		//设置昵称
+		user.setCn_user_nick(nick);
+		
+		userDao.save(user);
+		
+		//构建返回结果
+		result.setStatus(0);
+		result.setMsg("注册成功");
+		return result;
+	}
+
 }
