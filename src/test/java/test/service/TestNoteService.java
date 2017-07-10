@@ -43,4 +43,14 @@ public class TestNoteService extends TestCase{
 		System.out.println(result.getMsg());
 		System.out.println(result.getData().getCn_note_title());
 	}
+	
+	@Test
+	public void testUpdate(){
+		String noteId = "11a06d13-3285-46a9-bbd5-44cf932fee28";
+		String title = "java";
+		String body = "web";
+		NoteResult<Object> result = noteService.updateNote(noteId, title, body);
+		
+		System.out.println(result);
+	}
 }

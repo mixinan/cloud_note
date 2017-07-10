@@ -9,4 +9,5 @@ import cn.tedu.cloud_note.util.NoteResult;
 public interface NoteService {
 	public NoteResult<List<Map>> loadBookNotes(String bookId);
 	public NoteResult<Note> loadNote(String noteId);
+	public NoteResult<Object> updateNote(String noteId,String title,String body);
 }

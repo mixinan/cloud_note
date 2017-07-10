@@ -45,4 +45,44 @@ public class NoteServiceImpl implements NoteService {
 		}
 	}
 
+	public NoteResult<Note> updateNote(Note note) {
+		System.out.println(note.getCn_note_title());
+		int n = noteDao.updateNote(note);
+		NoteResult<Note> result = new NoteResult<Note>();
+
+		if (n == 1) {
+			Note newNote = noteDao.findByNoteId(note.getCn_note_id());
+
+			result.setStatus(0);
+			result.setMsg("更新成功");
+			result.setData(newNote);
+
+			return result;
+		}
+		return result;
+	}
+
+	
+	
+	public NoteResult<Object> updateNote(String noteId, String title, String body) {
+		Note note = new Note();
+		note.setCn_note_id(noteId);
+		note.setCn_note_title(title);
+		note.setCn_note_body(body);
+		note.setCn_note_last_modify_time(System.currentTimeMillis());
+
+		int rows = noteDao.updateNote(note);
+		NoteResult<Object> result = new NoteResult<Object>();
+		
+		if (rows == 1) {
+			result.setStatus(0);
+			result.setMsg("更新成功");
+			return result;
+		}else{
+			result.setStatus(1);
+			result.setMsg("保存失败");
+			return result;
+		}
+	}
+
 }

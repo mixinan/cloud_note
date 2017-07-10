@@ -1,4 +1,42 @@
-//加载笔记本的笔记
+//显示筆記信息
+function loadNote() {
+	// 设置选中效果
+	$("#note_ul a").removeClass("checked");
+	$(this).find("a").addClass("checked");
+	// 获取请求参数
+	var noteId = $(this).data("noteId");
+	//设置cookie
+	addCookie("noteId", noteId, 2);
+
+	// 发送ajax请求
+	$.ajax({
+		url : path + "/note/load.do",
+		type : "post",
+		data : {
+			"noteId" : noteId
+		},
+		dataType : "json",
+		success : function(result) {
+			if (result.status == 0) {
+				var note = result.data;
+				// alert(note.cn_note_title+":"+note.cn_note_body);
+				var title = note.cn_note_title;
+				var body = note.cn_note_body;
+				$("#input_note_title").val(title);
+				// $("#myEditor").html(body);
+				um.setContent(body);
+			}
+		},
+		error : function() {
+			console.log("加载该条笔记失败");
+		}
+	});
+}
+
+
+
+
+// 加载笔记本的笔记
 function loadBookNotes() {
 	// 设置选中效果
 	$("#book_ul a").removeClass("checked"); // 去除所有选中效果
@@ -34,6 +72,10 @@ function loadBookNotes() {
 		}
 	});
 }
+
+
+
+
 
 function createNoteLi(noteId, noteTitle) {
 	var str = "";
