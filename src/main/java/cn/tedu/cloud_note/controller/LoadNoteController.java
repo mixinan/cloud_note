@@ -1,29 +1,26 @@
 package cn.tedu.cloud_note.controller;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.tedu.cloud_note.entity.Note;
 import cn.tedu.cloud_note.service.NoteService;
 import cn.tedu.cloud_note.util.NoteResult;
 
 @Controller
 @RequestMapping("/note")
-public class LoadNotesController {
+public class LoadNoteController {
 	@Resource
 	private NoteService noteService;
 	
-	@RequestMapping("/loadnotes.do")
+	@RequestMapping("/load.do")
 	@ResponseBody
-	public NoteResult<List<Map>> execute(String bookId){
-		NoteResult<List<Map>> result = noteService.loadBookNotes(bookId);
+	public NoteResult<Note> execute(String noteId){
+		NoteResult<Note> result = noteService.loadNote(noteId);
 		
 		return result;
 	}
-	
 }

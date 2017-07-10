@@ -13,31 +13,36 @@ import cn.tedu.cloud_note.util.NoteResult;
 
 @Service("noteService")
 public class NoteServiceImpl implements NoteService {
-	
+
 	@Resource
 	private NoteDao noteDao;
 
 	public NoteResult<List<Map>> loadBookNotes(String bookId) {
 		List<Map> list = noteDao.findByBookId(bookId);
-		
+
 		NoteResult<List<Map>> result = new NoteResult<List<Map>>();
 		result.setStatus(0);
 		result.setMsg("笔记加载成功");
 		result.setData(list);
-		
+
 		return result;
 	}
 
 	public NoteResult<Note> loadNote(String noteId) {
 		Note note = noteDao.findByNoteId(noteId);
-		
-		NoteResult<Note> result = new NoteResult<Note>();
-		result.setStatus(0);
-		result.setMsg("加载该条笔记成功");
-		result.setData(note);
-		
-		return result;
-	}
 
+		NoteResult<Note> result = new NoteResult<Note>();
+
+		if (note == null) {
+			result.setStatus(1);
+			result.setMsg("未找到数据");
+			return result;
+		} else {
+			result.setStatus(0);
+			result.setMsg("加载该条笔记成功");
+			result.setData(note);
+			return result;
+		}
+	}
 
 }
