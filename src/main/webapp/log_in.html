@@ -54,7 +54,17 @@
 					type:"post",
 					data:{"name":name,"nick":nick,"password":password},
 					dataType:"json",
-					success:function(){
+					success:function(result){
+						if(result.status==0){
+							alert(result.msg);
+							//返回登录页面(点击“返回”按钮)
+							$("#back").click();
+						}else if(result.status==1){
+							//用户名被占用
+							//alert(result.msg);   
+							$("#warning_1 span").html(result.msg);
+							$("#warning_1").show();
+						}
 						
 					},
 					error:function(){
