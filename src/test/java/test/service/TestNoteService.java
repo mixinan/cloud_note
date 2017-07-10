@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cn.tedu.cloud_note.entity.Book;
+import cn.tedu.cloud_note.entity.Note;
 import cn.tedu.cloud_note.service.BookService;
 import cn.tedu.cloud_note.service.NoteService;
 import cn.tedu.cloud_note.util.NoteResult;
@@ -32,5 +33,14 @@ public class TestNoteService extends TestCase{
 			System.out.println(note.get("cn_note_title"));
 		}
 		
+	}
+	
+	
+	@Test
+	public void testLoadNoteByNoteId(){
+		NoteResult<Note> result = noteService.loadNote("054449b4-93d4-4f97-91cb-e0043fc4497f");
+		System.out.println(result.getStatus());
+		System.out.println(result.getMsg());
+		System.out.println(result.getData().getCn_note_title());
 	}
 }

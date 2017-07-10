@@ -29,41 +29,39 @@
 			$(function(){
 				loadUserBooks();
 				
-				//绑定笔记本单击事件
-				$("#book_ul").on("click","li",function(){
+				//绑定笔记本li单击事件
+				$("#book_ul").on("click","li",loadBookNotes);
+				
+				//绑定笔记li单击事件
+				$("#note_ul").on("click","li",function(){
 					//设置选中效果
-					$("#book_ul a").removeClass("checked");   //去除所有选中效果
-					$(this).find("a").addClass("checked");  //设置点击后的li效果
+					$("#note_ul a").removeClass("checked");
+					$(this).find("a").addClass("checked");
+					//获取请求参数
+					var noteId = $(this).data("noteId");
 					
-					//获取参数
-					var bookId = $(this).data("bookId");
-					//alert(bookId);
 					//发送ajax请求
 					$.ajax({
-						url:path+"/note/loadnotes.do",
+						url:path+"/note/load.do",
 						type:"post",
-						data:{"bookId":bookId},
+						data:{"noteId":noteId},
 						dataType:"json",
 						success:function(result){
 							if (result.status==0) {
-								//清空列表
-								$("#note_ul").empty();
-								
-								var maps = result.data;
-								for (var i = 0; i < maps.length; i++) {
-									var map = maps[i];
-									var noteId=map.cn_note_id;
-									var noteTitle=map.cn_note_title;
-									createNoteLi(noteId,noteTitle);
-								}
-								
+								var note = result.data;
+								//alert(note.cn_note_title+":"+note.cn_note_body);
+								var title = note.cn_note_title;
+								var body = note.cn_note_body;
+								$("#input_note_title").val(title);
+								$("#myEditor").html(body);
 							}
 						},
 						error:function(){
-							alert("获取笔记失败");
+							console.log("加载该条笔记失败");
 						}
-					});					
+					});
 				});
+				
 			});
 		</script>
 		
@@ -222,7 +220,13 @@
 						<div class="chat-contact">
 							<div class="contact-body">
 								<ul class="contacts-list">
-									<!--li class="idle"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> switch多分支结构<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button></a></li-->
+								
+									<!--
+									
+									<li class="idle"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> switch多分支结构<button type="button" class="btn btn-default btn-xs btn_position btn_delete"><i class="fa fa-times"></i></button></a></li>
+									
+									-->
+									
 								</ul>
 							</div>
 						</div>
@@ -240,7 +244,13 @@
 						<div class="chat-contact">
 							<div class="contact-body">
 								<ul class="contacts-list">
-									<!--li class="offline"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> 样式用例（点击无效）</a></li-->
+								
+									<!-- ajax加载
+									
+									<li class="offline"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> 样式用例（点击无效）</a></li>
+									
+									-->
+								
 								</ul>
 							</div>
 						</div>
@@ -274,10 +284,12 @@
 								<!--- 笔记标题 --->
 								<div class="row">
 									<div class="col-sm-12">
+									
 										<!--- 输入框 --->
 										<script type="text/plain" id="myEditor" style="width:100%;height:400px;">
 										</script>
 										<!--- 输入框 --->
+										
 									</div>
 								</div>
 							</div>

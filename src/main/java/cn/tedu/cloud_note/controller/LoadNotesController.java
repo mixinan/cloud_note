@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.tedu.cloud_note.entity.Note;
 import cn.tedu.cloud_note.service.NoteService;
 import cn.tedu.cloud_note.util.NoteResult;
 
@@ -22,6 +23,14 @@ public class LoadNotesController {
 	@ResponseBody
 	public NoteResult<List<Map>> execute(String bookId){
 		NoteResult<List<Map>> result = noteService.loadBookNotes(bookId);
+		
+		return result;
+	}
+	
+	@RequestMapping("/load.do")
+	@ResponseBody
+	public NoteResult<Note> load(String noteId){
+		NoteResult<Note> result = noteService.loadNote(noteId);
 		
 		return result;
 	}

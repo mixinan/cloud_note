@@ -8,5 +8,8 @@
 			where cn_notebook_id=#{bookId} and cn_note_status_id='1'
 	</select>
 	
-	
+	<select id="findByNoteId" parameterType="String" resultType="cn.tedu.cloud_note.entity.Note">
+		select * from cn_note 
+			where cn_note_id=#{noteId}
+	</select>
 </mapper>
