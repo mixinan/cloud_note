@@ -14,7 +14,7 @@ import cn.tedu.cloud_note.util.NoteResult;
 public class NoteServiceImpl implements NoteService {
 	
 	@Resource
-	NoteDao noteDao;
+	private NoteDao noteDao;
 
 	public NoteResult<List<Map>> loadBookNotes(String bookId) {
 		List<Map> list = noteDao.findByBookId(bookId);
