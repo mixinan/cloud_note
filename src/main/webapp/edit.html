@@ -23,8 +23,8 @@
 		<script type="text/javascript" src="scripts/basevalue.js"></script>
 		<script type="text/javascript" src="scripts/cookie_util.js"></script>
 		<script type="text/javascript" src="scripts/book.js"></script>
-		<script type="text/javascript" src="scripts/note.js"></script>
 		<script type="text/javascript" src="scripts/alert.js"></script>
+		<script type="text/javascript" src="scripts/note.js"></script>
 		
 		<script type="text/javascript">
 			$(function(){
@@ -53,56 +53,28 @@
 				$("#add_note").click(alertAddNoteWindow);
 				
 				//创建笔记，绑定按钮
-				$("#can").on("click","#sure_addnote",function(){
-					console.log(this);
-					//获取参数    笔记名称，笔记本id
-					//笔记名称
-					var title = $("#input_note").val().trim();
-					//userId
-					var userId = getCookie("userId");
-					//笔记本id
-					var $li = $("#book_ul a.checked").parent();
-					var bookId = $li.data("bookId");
-					//数据格式检查
-					var ok = true;
-					
-					if (title=="") {//是否为空
-						ok=false;
-						$("#title_span").html("笔记标题不能为空");
-					}
-					
-					if (userId==null) {//是否失效
-						ok=false;
-						window.location.href="log_in.html";
-					}
-					
-					if (ok) {
-						$.ajax({
-							url:path+"/note/add.do",
-							type:"post",
-							data:{"userId":userId,"title":title,"bookId":bookId},
-							dataType:"json",
-							success:function(result){
-								//alert(result.msg);
-								if (result.status==0) {
-									//关闭对话框
-									closeAlertWindow();
-									var note = result.data;
-									//获取noteTitle
-									var noteTitle = note.cn_note_title;
-									//获取noteId
-									var noteId = note.cn_note_id;
-									
-									createNoteLi(noteId,noteTitle);
-								}
-							},
-							error:function(){
-								alert("笔记创建失败");
-							}
-						});
-					}
-					
+				$("#can").on("click","#sure_addnote",addNote);
+				
+				//笔记的下拉菜单
+				$("#note_ul").on("click",".btn_slide_down",function(){
+					//隐藏下拉菜单
+					$("#note_ul div").hide(100);
+					//显示菜单列表
+					var $note_menu = $(this).parents("li").find("div");
+					$note_menu.slideDown(380);
+					return false; //阻止冒泡事件
 				});
+				
+				
+				//点击页面，隐藏笔记下拉菜单
+				$("body").click(function(){
+					$("#note_ul div").hide(100);
+				});
+				
+				
+				//笔记的“分享”按钮
+				$("#note_ul").on("click",".btn_share",shareNote);
+				
 				
 			});
 		</script>
@@ -193,7 +165,7 @@
 							<div class="contact-body">
 								<ul class="contacts-list" id="note_ul">
 								
-								
+									
 									<!-- ajax加载
 									
 									<li class="online">

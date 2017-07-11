@@ -1,3 +1,34 @@
+function shareNote(){
+					//获取参数noteId
+					var $li = $(this).parents("li");
+					var noteId = $li.data("noteId");
+					//发送ajax请求
+					$.ajax({
+						url:path+"/share/add.do",
+						type:"post",
+						data:{"noteId":noteId},
+						dataType:"json",
+						success:function(result){
+							var noteTitle = $li.text();
+							var str = '';
+							str += '<i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>';
+							str += noteTitle;
+							str += ' <i class="fa fa-sitemap"></i>';
+							str += '<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down"><i class="fa fa-chevron-down"></i></button>';
+							
+							//将笔记li元素的a标记内容替换
+							$li.find('a').html(str);
+							
+							alert(result.msg);
+						},
+						error:function(){
+							alert("分享失败");
+						}
+					});
+				}
+
+
+
 //保存笔记
 function updateNote() {
 	// 获取参数
