@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import cn.tedu.cloud_note.dao.NoteDao;
 import cn.tedu.cloud_note.entity.Note;
 import cn.tedu.cloud_note.util.NoteResult;
+import cn.tedu.cloud_note.util.NoteUtil;
 
 @Service("noteService")
 public class NoteServiceImpl implements NoteService {
@@ -83,6 +84,32 @@ public class NoteServiceImpl implements NoteService {
 			result.setMsg("保存失败");
 			return result;
 		}
+	}
+
+	public NoteResult<Note> addNote(String userId, String bookId, String title) {
+		Note note = new Note();
+		
+		//传过来的参数
+		note.setCn_user_id(userId);
+		note.setCn_notebook_id(bookId);
+		note.setCn_note_title(title);
+		
+		//自动生成的参数
+		note.setCn_note_create_time(System.currentTimeMillis());
+		note.setCn_note_last_modify_time(System.currentTimeMillis());
+		note.setCn_note_status_id("1");
+		note.setCn_note_id(NoteUtil.createId());
+		note.setCn_note_body("");
+		note.setCn_note_type_id("1");
+		
+		noteDao.save(note);
+		
+		NoteResult<Note> result = new NoteResult<Note>();
+		result.setStatus(0);
+		result.setMsg("笔记创建成功");
+		result.setData(note);
+		
+		return result;
 	}
 
 }

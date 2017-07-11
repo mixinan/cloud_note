@@ -2,48 +2,48 @@
 <html>
 <head>
 <link rel="stylesheet" href="styles/login.css"/>
-
-<!-- ÒıÈëjquery -->
+<meta charset="utf-8">
+<!-- å¼•å…¥jquery -->
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/basevalue.js"></script>
 <script type="text/javascript" src="scripts/cookie_util.js"></script>
 <script type="text/javascript" src="scripts/login.js"></script>
 <script type="text/javascript">
-	$(function(){   //Ò³Ãæ¼ÓÔØÍêµ÷ÓÃ¸Ãº¯Êı
-		//µÇÂ¼¹¦ÄÜÊÂ¼ş°ó¶¨
+	$(function(){   //é¡µé¢åŠ è½½å®Œè°ƒç”¨è¯¥å‡½æ•°
+		//ç™»å½•åŠŸèƒ½äº‹ä»¶ç»‘å®š
 		$("#login").click(userLogin);
-		//×¢²á¹¦ÄÜµÄÊÂ¼ş°ó¶¨
+		//æ³¨å†ŒåŠŸèƒ½çš„äº‹ä»¶ç»‘å®š
 		$("#regist_button").click(function(){
-			//»ñÈ¡²ÎÊı
+			//è·å–å‚æ•°
 			var name = $("#regist_username").val().trim();
 			var nick = $("#nickname").val().trim();
 			var password = $("#regist_password").val().trim();
 			var final_password = $("#final_password").val().trim();
 			alert(name+","+nick+","+password+","+final_password);
-			//¼ì²éÊı¾İ¸ñÊ½
-			var ok = true;   //±íÊ¾²ÎÊı×´Ì¬
-			//¼ì²éÕËºÅ
+			//æ£€æŸ¥æ•°æ®æ ¼å¼
+			var ok = true;   //è¡¨ç¤ºå‚æ•°çŠ¶æ€
+			//æ£€æŸ¥è´¦å·
 			if (name=="") {
-				$("#warning_1 span").html("ÓÃ»§²»ÄÜÎª¿Õ");
+				$("#warning_1 span").html("ç”¨æˆ·ä¸èƒ½ä¸ºç©º");
 				$("#warning_1").show();
 				ok=false;
 			}
 			
-			//¼ì²éÃÜÂë
+			//æ£€æŸ¥å¯†ç 
 			if (password=="") {
 				ok=false;
-				$("#warning_2 span").html("ÃÜÂë²»ÄÜÎª¿Õ");
+				$("#warning_2 span").html("å¯†ç ä¸èƒ½ä¸ºç©º");
 				$("#warning_2").show();
 			}else if(password.length > 0 && password.length<6){
 				ok=false;
-				$("#warning_2 span").html("ÃÜÂë²»ÄÜÉÙÓÚ6Î»");
+				$("#warning_2 span").html("å¯†ç ä¸èƒ½å°‘äº6ä½");
 				$("#warning_2").show();
 			}
 			
-			//¼ì²éÈ·ÈÏÃÜÂë
+			//æ£€æŸ¥ç¡®è®¤å¯†ç 
 			if (final_password!=password) {
 				ok=false;
-				$("#warning_3 span").html("ÊäÈëÃÜÂë²»Ò»ÖÂ");
+				$("#warning_3 span").html("è¾“å…¥å¯†ç ä¸ä¸€è‡´");
 				$("#warning_3").show();
 			}
 			
@@ -57,10 +57,10 @@
 					success:function(result){
 						if(result.status==0){
 							alert(result.msg);
-							//·µ»ØµÇÂ¼Ò³Ãæ(µã»÷¡°·µ»Ø¡±°´Å¥)
+							//è¿”å›ç™»å½•é¡µé¢(ç‚¹å‡»â€œè¿”å›â€æŒ‰é’®)
 							$("#back").click();
 						}else if(result.status==1){
-							//ÓÃ»§Ãû±»Õ¼ÓÃ
+							//ç”¨æˆ·åè¢«å ç”¨
 							//alert(result.msg);   
 							$("#warning_1 span").html(result.msg);
 							$("#warning_1").show();
@@ -68,7 +68,7 @@
 						
 					},
 					error:function(){
-						alert("×¢²áÊ§°Ü");
+						alert("æ³¨å†Œå¤±è´¥");
 					}
 				});
 			}
@@ -85,26 +85,26 @@
 				<dl>
 					<dt>
 						<div class='header'>
-							<h3>µÇ&nbsp;Â¼</h3>
+							<h3>ç™»&nbsp;å½•</h3>
 						</div>
 					</dt>
 					<dt></dt>
 					<dt>
 						<div class='letter'>
-							ÓÃ»§Ãû:&nbsp;<input type="text" name="" id="count" tabindex='1'/>
+							ç”¨æˆ·å:&nbsp;<input type="text" name="" id="count" tabindex='1'/>
 							<span id="count_span"></span>
 						</div>
 					</dt>
 					<dt>
 						<div class='letter'>
-							ÃÜ&nbsp;&nbsp;&nbsp;Âë:&nbsp;<input type="password" name="" id="password" tabindex='2'/>
+							å¯†&nbsp;&nbsp;&nbsp;ç :&nbsp;<input type="password" name="" id="password" tabindex='2'/>
 							<span id="password_span"></span>
 						</div>
 					</dt>
 					<dt>
 						<div>
-							<input type="button" name="" id="login" value='&nbspµÇ&nbspÂ¼&nbsp' tabindex='3'/>
-							<input type="button" name="" id="sig_in" value='&nbsp×¢&nbsp²á&nbsp' tabindex='4'/>
+							<input type="button" name="" id="login" value='&nbspç™»&nbspå½•&nbsp' tabindex='3'/>
+							<input type="button" name="" id="sig_in" value='&nbspæ³¨&nbspå†Œ&nbsp' tabindex='4'/>
 						</div>
 					</dt>
 				</dl>
@@ -113,37 +113,37 @@
 				<dl>
 					<dt>
 						<div class='header'>
-							<h3>×¢&nbsp;²á</h3>
+							<h3>æ³¨&nbsp;å†Œ</h3>
 						</div>
 					</dt>
 					<dt></dt>
 					<dt>
 						<div class='letter'>
-							ÓÃ»§Ãû:&nbsp;<input type="text" name="" id="regist_username" tabindex='5'/>
-							<div class='warning' id='warning_1'><span>¸ÃÓÃ»§Ãû²»¿ÉÓÃ</span></div>
+							ç”¨æˆ·å:&nbsp;<input type="text" name="" id="regist_username" tabindex='5'/>
+							<div class='warning' id='warning_1'><span>è¯¥ç”¨æˆ·åä¸å¯ç”¨</span></div>
 						</div>
 					</dt>
 					<dt>
 						<div class='letter'>
-							êÇ&nbsp;&nbsp;&nbsp;³Æ:&nbsp;<input type="text" name="" id="nickname" tabindex='6'/>
+							æ˜µ&nbsp;&nbsp;&nbsp;ç§°:&nbsp;<input type="text" name="" id="nickname" tabindex='6'/>
 						</div>
 					</dt>
 					<dt>
 						<div class='letter'>
-							ÃÜ&nbsp;&nbsp;&nbsp;Âë:&nbsp;<input type="password" name="" id="regist_password" tabindex='7'/>
-							<div class='warning' id='warning_2'><span>ÃÜÂë³¤¶È¹ı¶Ì</span></div>
+							å¯†&nbsp;&nbsp;&nbsp;ç :&nbsp;<input type="password" name="" id="regist_password" tabindex='7'/>
+							<div class='warning' id='warning_2'><span>å¯†ç é•¿åº¦è¿‡çŸ­</span></div>
 						</div>
 					</dt>
 					<dt>
 						<div class='password'>
-							&nbsp;&nbsp;&nbsp;È·ÈÏÃÜÂë:&nbsp;<input type="password" name="" id="final_password" tabindex='8'/>
-							<div class='warning' id='warning_3'><span>ÃÜÂëÊäÈë²»Ò»ÖÂ</span></div>
+							&nbsp;&nbsp;&nbsp;ç¡®è®¤å¯†ç :&nbsp;<input type="password" name="" id="final_password" tabindex='8'/>
+							<div class='warning' id='warning_3'><span>å¯†ç è¾“å…¥ä¸ä¸€è‡´</span></div>
 						</div>
 					</dt>
 					<dt>
 						<div>
-							<input type="button" name="" id="regist_button" value='&nbsp×¢&nbsp²á&nbsp' tabindex='9'/>
-							<input type="button" name="" id="back" value='&nbsp·µ&nbsp»Ø&nbsp' tabindex='10'/>
+							<input type="button" name="" id="regist_button" value='&nbspæ³¨&nbspå†Œ&nbsp' tabindex='9'/>
+							<input type="button" name="" id="back" value='&nbspè¿”&nbspå›&nbsp' tabindex='10'/>
 							<script type="text/javascript">
 							function get(e){
 								return document.getElementById(e);

@@ -7,5 +7,5 @@ import cn.tedu.cloud_note.util.NoteResult;
 
 public interface BookService {
 	public NoteResult<List<Book>> loadUserBooks(String userId);
-	
+	public NoteResult<Book> createBook(String userId,String bookName);
 }

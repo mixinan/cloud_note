@@ -138,5 +138,5 @@ function createNoteLi(noteId, noteTitle) {
 
 	$li.data("noteId", noteId);
 
-	$("#note_ul").append($li);
+	$("#note_ul").prepend($li);
 }
