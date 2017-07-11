@@ -1,11 +1,54 @@
-//显示筆記信息
+//保存笔记
+function updateNote() {
+	// 获取参数
+	var title = $("#input_note_title").val().trim();
+	var body = um.getContent();
+
+	var $li = $("#note_ul a.checked").parent();
+	var noteId = $li.data("noteId");
+
+	// console.log(noteId+" ： "+title+" : "+body);
+
+	// 发送ajax请求
+
+	$.ajax({
+			url : path + "/note/update.do",
+			type : "post",
+			data : {
+				"noteId" : noteId,
+				"title" : title,
+				"body" : body
+			},
+			dataType : "json",
+			success : function(result) {
+				if (result.status == 0) {
+					var str = "";
+					str += '<i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>';
+					str += title;
+					str += '<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down"><i class="fa fa-chevron-down"></i></button>';
+					// 将str替换到li的a元素里
+					$li.find("a").html(str);
+					// 提示成功
+					alert(result.msg);
+				}
+			},
+			error : function() {
+				alert("保存笔记失败");
+			}
+		});
+}
+
+
+
+
+// 显示筆記信息
 function loadNote() {
 	// 设置选中效果
 	$("#note_ul a").removeClass("checked");
 	$(this).find("a").addClass("checked");
 	// 获取请求参数
 	var noteId = $(this).data("noteId");
-	//设置cookie
+	// 设置cookie
 	addCookie("noteId", noteId, 2);
 
 	// 发送ajax请求
@@ -32,6 +75,7 @@ function loadNote() {
 		}
 	});
 }
+
 
 
 
@@ -72,10 +116,6 @@ function loadBookNotes() {
 		}
 	});
 }
-
-
-
-
 
 function createNoteLi(noteId, noteTitle) {
 	var str = "";
