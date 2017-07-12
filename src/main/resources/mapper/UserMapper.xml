@@ -14,7 +14,8 @@
 			cn_user_password,
 			cn_user_nick,
 			cn_user_token) 
-		values(#{cn_user_id},
+		values(
+			#{cn_user_id},
 			#{cn_user_name},
 			#{cn_user_password},
 			#{cn_user_nick},

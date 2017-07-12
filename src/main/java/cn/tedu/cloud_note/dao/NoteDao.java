@@ -10,5 +10,4 @@ public interface NoteDao {
 	public Note findByNoteId(String noteId);
 	public int updateNote(Note note);
 	public void save(Note note);
-	public int shareNote(Note note);
 }

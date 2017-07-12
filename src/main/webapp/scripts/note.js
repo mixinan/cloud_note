@@ -113,6 +113,10 @@ function loadNote() {
 
 // 加载笔记本的笔记
 function loadBookNotes() {
+	//点击笔记本li，清空编辑器里的内容
+	$("#input_note_title").val("");
+	um.setContent("");
+	
 	// 设置选中效果
 	$("#book_ul a").removeClass("checked"); // 去除所有选中效果
 	$(this).find("a").addClass("checked"); // 设置点击后的li效果
