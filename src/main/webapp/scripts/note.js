@@ -117,6 +117,10 @@ function loadBookNotes() {
 	$("#input_note_title").val("");
 	um.setContent("");
 	
+	//中间的notes布局容器替换
+	$("#pc_part_6").hide();
+	$("#pc_part_2").show();
+	
 	// 设置选中效果
 	$("#book_ul a").removeClass("checked"); // 去除所有选中效果
 	$(this).find("a").addClass("checked"); // 设置点击后的li效果
