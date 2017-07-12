@@ -1,5 +1,7 @@
 package cn.tedu.cloud_note.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +38,13 @@ public class ShareServiceImpl implements ShareService {
 		result.setMsg("∑÷œÌ≥…π¶");
 		
 		return result;
+	}
+
+
+	public List<Share> searchLikeNotes(String keyword) {
+		List<Share> list = shareDao.searchLikeNotes(keyword);
+		
+		return list;
 	}
 
 }
