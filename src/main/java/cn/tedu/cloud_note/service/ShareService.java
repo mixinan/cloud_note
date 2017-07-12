@@ -7,5 +7,5 @@ import cn.tedu.cloud_note.util.NoteResult;
 
 public interface ShareService {
 	public NoteResult<Object> shareNote(String noteId);
-	public List<Share> searchLikeNotes(String keyword);
+	public NoteResult<List<Share>> searchLikeNotes(String keyword,int page);
 }

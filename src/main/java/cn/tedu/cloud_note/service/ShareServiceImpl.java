@@ -1,6 +1,8 @@
 package cn.tedu.cloud_note.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -41,10 +43,20 @@ public class ShareServiceImpl implements ShareService {
 	}
 
 
-	public List<Share> searchLikeNotes(String keyword) {
-		List<Share> list = shareDao.searchLikeNotes(keyword);
+	public NoteResult<List<Share>> searchLikeNotes(String keyword,int page) {
+		Map<String,Object> params = new HashMap<String, Object>();
+		int begin = (page-1)*3;
+		params.put("keyword", keyword);
+		params.put("begin", begin);
 		
-		return list;
+		List<Share> list = shareDao.searchLikeNotes(params);
+		
+		NoteResult<List<Share>> result = new NoteResult<List<Share>>();
+		result.setStatus(0);
+		result.setMsg("≤È—Ø≥…π¶");
+		result.setData(list);
+		
+		return result;
 	}
 
 }

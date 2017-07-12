@@ -16,8 +16,8 @@
 			#{cn_note_id})
 	</insert>
 	
-	<select id="searchLikeNotes" parameterType="String" resultType="cn.tedu.cloud_note.entity.Share">
-		select * from cn_share where cn_share_body like "%"#{keyword}"%"
+	<select id="searchLikeNotes" parameterType="Map" resultType="cn.tedu.cloud_note.entity.Share">
+		select * from cn_share where cn_share_body like "%"#{keyword}"%" limit #{begin},3
 	</select>
 	
 </mapper>

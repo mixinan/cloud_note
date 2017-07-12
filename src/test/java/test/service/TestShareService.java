@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import cn.tedu.cloud_note.entity.Share;
 import cn.tedu.cloud_note.service.ShareService;
+import cn.tedu.cloud_note.util.NoteResult;
 import test.TestCase;
 
 public class TestShareService extends TestCase{
@@ -19,9 +20,9 @@ public class TestShareService extends TestCase{
 	
 	@Test
 	public void execute(){
-		List<Share> result = shareService.searchLikeNotes("a");
+		NoteResult<List<Share>> result = shareService.searchLikeNotes("a",1);
 		
-		System.out.println(result);
+		System.out.println(result.getData());
 		
 	}
 }

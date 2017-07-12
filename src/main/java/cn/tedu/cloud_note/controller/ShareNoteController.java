@@ -25,17 +25,16 @@ public class ShareNoteController {
 		return result;
 	}
 	
+	
 	@RequestMapping("/search.do")
 	@ResponseBody
-	public NoteResult<List<Share>> search(String keyword){
-		List<Share> list = shareService.searchLikeNotes(keyword);
+	public NoteResult<List<Share>> search(String keyword,int page){
+		NoteResult<List<Share>> result = shareService.searchLikeNotes(keyword,page);
 		
-		NoteResult<List<Share>> result = new NoteResult<List<Share>>();
-		
-		if (list.size()!=0) {
+		if (result.getData().size()!=0) {
 			result.setStatus(0);
 			result.setMsg("查询成功");
-			result.setData(list);
+			result.setData(result.getData());
 		}else{
 			result.setStatus(1);
 			result.setMsg("没有符合的数据");
@@ -43,4 +42,5 @@ public class ShareNoteController {
 		
 		return result;
 	}
+	
 }

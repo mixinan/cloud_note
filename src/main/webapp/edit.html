@@ -25,8 +25,11 @@
 		<script type="text/javascript" src="scripts/book.js"></script>
 		<script type="text/javascript" src="scripts/alert.js"></script>
 		<script type="text/javascript" src="scripts/note.js"></script>
+		<script type="text/javascript" src="scripts/share.js"></script>
 		
 		<script type="text/javascript">
+			var page = 1;
+			
 			$(function(){
 				//加载所有的笔记本
 				loadUserBooks();
@@ -75,67 +78,11 @@
 				//笔记的“分享”按钮
 				$("#note_ul").on("click",".btn_share",shareNote);
 				
-				//搜索
-				$("#search_note").keydown(function(event){
-					var code = event.keyCode;
-					if (code==13) {  //回车键
-						
-						//清空“搜索结果框”之前的内容
-						var $ul = $("#pc_part_6").find(".contacts-list");
-						$ul.empty();
-						
-						//获取搜索关键字 input的value
-						var keyword = $("#search_note").val().trim();
-						if (keyword=="") {
-							alert("不能为空");
-						}else{
-							//发送ajax请求
-							$.ajax({
-								url:path+"/share/search.do",
-								type:"post",
-								data:{"keyword":keyword},
-								dataType:"json",
-								success:function(result){
-									
-									if (result.status==0) {
-										//服务器返回的数据
-										var shares = result.data;
-										
-										//布局容器替换
-										$("#pc_part_2").hide();
-										$("#pc_part_6").show();
-										
-										//var $ul = $("#pc_part_6").find(".contacts-list");
-										
-										for (var i = 0; i < shares.length; i++) {
-											var shareNote = shares[i];
-											var str = '';
-											
-											str+='<li class="online">';
-											str+='<a>';
-											str+='<i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>';
-											str+=shareNote.cn_share_title;
-											str+='<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down"><i class="fa fa-chevron-down"></i></button>';
-											str+='</a>';
-											str+='</li>';
-											
-											var $li = $(str);
-											
-											$li.data("shareId",shareNote.cn_share_id);
-											
-											$ul.append($li);
-										}
-									}else if(result.status==1){
-										alert(result.msg);
-									}
-								},
-								error:function(){
-									alert("查询失败");
-								}
-							});
-						}
-					}
-				});
+				//搜索,第一页
+				$("#search_note").keydown(sureSearchShare);
+				
+				//加载更多
+				$("#more_note").click(moreSearchShare);
 			});
 		</script>
 		
